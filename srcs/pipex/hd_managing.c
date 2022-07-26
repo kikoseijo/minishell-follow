@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:53:59 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/26 13:10:49 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:22:55 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ static char	*ft_add_backslash_en(char *line)
 
 void	ft_hd_performer(char *path, t_hd *hd)
 {
-	sig_toggle(3);
 	while (42)
 	{
 		hd->buffer = readline("heredoc> ");
