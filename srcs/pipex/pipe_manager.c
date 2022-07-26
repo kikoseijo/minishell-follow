@@ -6,21 +6,11 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/06 21:43:57 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/24 16:02:54 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:48:17 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-void	ft_last_action(t_var var, int ac, char *av[])
-{
-	close(var.fd[1]);
-	var.fd[1] = open(av[ac - 1], O_WRONLY | O_TRUNC, 0644);
-	if (var.fd[1] < 0)
-		ft_puterror("Error: Impossible to open the file.");
-	unlink(TMP_FILE);
-}
-*/
 
 static void	manager_exit(t_var *var, t_stack **arr)
 {

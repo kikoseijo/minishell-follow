@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:20:12 by albaur            #+#    #+#             */
-/*   Updated: 2022/07/26 10:14:26 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 11:48:40 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,4 +49,5 @@ void	process_input(t_data *data)
 	}
 	free(data->input);
 	builtin_cd_chdir();
+	unlink(TMP_FILE);
 }
