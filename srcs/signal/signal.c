@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 10:46:55 by albaur            #+#    #+#             */
-/*   Updated: 2022/07/26 10:36:55 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:02:20 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,13 @@ int	sig_toggle(int n)
 		sig_ignore(SIGINT);
 		sig_ignore(SIGQUIT);
 		init_mode(1);
+		return (0);
+	}
+	else if (n == 3)
+	{
+		sig_wait(SIGINT, here_doc_sig_handler);
+		sig_ignore(SIGQUIT);
+		init_mode(0);
 		return (0);
 	}
 	init_mode(n);

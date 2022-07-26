@@ -6,13 +6,13 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:53:59 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/26 14:22:55 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:09:45 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	ope_and_write(char **arr, char *path)
+void	ft_hd_performer(char *path, t_hd *hd)
 {
 	int	fd;
 	int	i;
@@ -21,68 +21,24 @@ static int	ope_and_write(char **arr, char *path)
 	fd = open(TMP_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (fd < 0)
 	{
-		ft_printerror("pipex", TMP_FILE);
-		return (-1);
+		ret_null("minishell:", strerror(errno));
+		return ;
 	}
-	while (arr[i] && ft_strncmp(arr[i], path, ft_strlen(path))
-		&& ft_strlen(arr[i]) - 1 != ft_strlen(path))
-	{
-		write(fd, arr[i], ft_strlen(arr[i]));
-		write(fd, "\n", 1);
-		i++;
-	}
-	close(fd);
-	return (fd);
-}
-
-static char	*ft_add_backslash_en(char *line)
-{
-	char	*str;
-	size_t	len;
-
-	if (!line)
-		return (NULL);
-	if (line[0] != '\0')
-	{
-		len = ft_strlen(line);
-		str = malloc(sizeof(char) * (len + 2));
-		if (!str)
-			return (NULL);
-		ft_strcpy(str, line);
-		str[len] = '\n';
-		str[len + 1] = '\0';
-	}
-	else
-	{
-		str = malloc(sizeof(char) * 1);
-		if (!str)
-			return (NULL);
-		str[0] = '\0';
-	}
-	free(line);
-	return (str);
-}
-
-void	ft_hd_performer(char *path, t_hd *hd)
-{
+	sig_toggle(3);
 	while (42)
 	{
 		hd->buffer = readline("heredoc> ");
-		if (!hd->buffer)
-			return ;
-		hd->buffer = ft_add_backslash_en(hd->buffer);
-		if (!hd->buffer)
-			return ;
-		hd->cmp = ft_strncmp(hd->buffer, path,
-				ft_strlen(hd->buffer) - 1);
-		if (!hd->buffer || (!hd->cmp
-				&& ft_strlen(hd->buffer) - 1 == ft_strlen(path)))
+		if (!hd->buffer || (!ft_strcmp(hd->buffer, path)
+				&& ft_strlen(hd->buffer) == ft_strlen(path)))
 			break ;
-		hd->temp = ft_concat(hd->temp, hd->buffer);
-		if (!hd->temp)
-			return ;
+		i = -1;
+		while (hd->buffer[++i])
+			ft_putchar_fd(hd->buffer[i], fd);
+		ft_putchar_fd('\n', fd);
 		free(hd->buffer);
 	}
+	free(hd->buffer);
+	close(fd);
 }
 
 static void	hd_managing(char *path, t_var *var)
@@ -92,14 +48,6 @@ static void	hd_managing(char *path, t_var *var)
 	hd.temp = malloc(sizeof(char) * 1);
 	hd.temp[0] = '\0';
 	ft_hd_performer(path, &hd);
-	hd.arr = ft_split(hd.temp, '\n');
-	if (!hd.arr)
-	{
-		free(hd.temp);
-		return (ret_null("minishell:", strerror(errno)));
-	}
-	var->fd[0] = ope_and_write(hd.arr, path);
-	ft_arr_freer(hd.arr);
 	var->fd[0] = open(TMP_FILE, O_RDONLY);
 	if (var->fd[0] < 0)
 	{
