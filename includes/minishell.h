@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:44:32 by albaur            #+#    #+#             */
-/*   Updated: 2022/07/26 10:14:10 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:27:14 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -228,7 +228,7 @@ int			builtin_echo(char **av);
 void		sig_ignore(int sig);
 void		sig_wait(int sig, void (*hdlr)(int, siginfo_t *, void *));
 void		sig_handler(int sig, siginfo_t *info, void *context);
-int			sig_toggle(int n);
+void		sig_toggle(int n);
 void		sig_int_nl(int sig, siginfo_t *info, void *context);
 void		sig_handler(int sig, siginfo_t *info, void *context);
 void		here_doc_sig_handler(int sig, siginfo_t *info, void *context);

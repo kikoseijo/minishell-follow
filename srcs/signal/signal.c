@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   signal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
+/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/14 10:46:55 by albaur            #+#    #+#             */
-/*   Updated: 2022/07/26 15:18:24 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:26:47 by albaur           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	sig_toggle(int n)
+void	sig_toggle(int n)
 {
 	if (n == 0)
 	{
@@ -29,17 +29,16 @@ int	sig_toggle(int n)
 		sig_ignore(SIGINT);
 		sig_ignore(SIGQUIT);
 		init_mode(1);
-		return (0);
+		return ;
 	}
 	else if (n == 3)
 	{
 		sig_wait(SIGINT, here_doc_sig_handler);
 		sig_ignore(SIGQUIT);
 		init_mode(0);
-		return (0);
+		return ;
 	}
 	init_mode(n);
-	return (1);
 }
 
 void	sig_wait(int sig, void (*hdlr)(int, siginfo_t *, void *))
