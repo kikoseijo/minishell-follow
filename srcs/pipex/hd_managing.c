@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hd_managing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:53:59 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/25 17:34:41 by albaur           ###   ########.fr       */
+/*   Updated: 2022/07/26 10:33:25 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,12 @@ static int	ope_and_write(char **arr, char *path)
 		ft_printerror("pipex", TMP_FILE);
 		return (-1);
 	}
-	if (!g_hd->done)
+	while (arr[i] && ft_strncmp(arr[i], path, ft_strlen(path))
+		&& ft_strlen(arr[i]) - 1 != ft_strlen(path))
 	{
-		while (arr[i] && ft_strncmp(arr[i], path, ft_strlen(path))
-			&& ft_strlen(arr[i]) - 1 != ft_strlen(path))
-		{
-			write(fd, arr[i], ft_strlen(arr[i]));
-			write(fd, "\n", 1);
-			i++;
-		}
+		write(fd, arr[i], ft_strlen(arr[i]));
+		write(fd, "\n", 1);
+		i++;
 	}
 	close(fd);
 	return (fd);
@@ -63,11 +60,17 @@ static char	*ft_add_backslash_en(char *line)
 	}
 }
 
+int	event(void)
+{
+	return (0);
+}
+
 void	ft_hd_performer(char *path, t_hd *hd)
 {
-	g_hd->done = 0;
+	sig_toggle(2);
 	while (42)
 	{
+		sig_toggle(3);
 		hd->buffer = readline("heredoc> ");
 		if (!hd->buffer)
 			return ;
@@ -76,15 +79,16 @@ void	ft_hd_performer(char *path, t_hd *hd)
 			return ;
 		hd->cmp = ft_strncmp(hd->buffer, path,
 				ft_strlen(hd->buffer) - 1);
+		rl_event_hook = event;
 		if (!hd->buffer || (!hd->cmp
-				&& ft_strlen(hd->buffer) - 1 == ft_strlen(path))
-			|| g_hd->done == 1)
+				&& ft_strlen(hd->buffer) - 1 == ft_strlen(path)))
 			break ;
 		hd->temp = ft_concat(hd->temp, hd->buffer);
 		if (!hd->temp)
 			return ;
 		free(hd->buffer);
 	}
+	rl_done = 0;
 }
 
 static void	hd_managing(char *path, t_var *var)

@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/20 16:20:12 by albaur            #+#    #+#             */
-/*   Updated: 2022/07/24 15:15:38 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 10:14:26 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ void	process_input(t_data *data)
 {
 	char	**arr;
 
-	g_hd = malloc(sizeof(t_hd) * 1);
 	if (check_input(data->input) == 1)
 		add_history(data->input);
 	if (ft_check_quotes(data->input) > 0)

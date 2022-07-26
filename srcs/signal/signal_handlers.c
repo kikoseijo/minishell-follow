@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_handlers.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 22:03:54 by albaur            #+#    #+#             */
-/*   Updated: 2022/07/25 17:19:22 by albaur           ###   ########.fr       */
+/*   Updated: 2022/07/26 10:31:38 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	here_doc_sig_handler(int sig, siginfo_t *info, void *context)
 	(void)context;
 	if (sig == SIGINT)
 	{
-		ft_putendl("");
-		rl_replace_line("", 0);
-		rl_on_new_line();
 		env_set_arg("?HEREDOC", "1");
-		exit(1);
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		rl_done = 1;
+//		exit(1);
 	}
 }
 

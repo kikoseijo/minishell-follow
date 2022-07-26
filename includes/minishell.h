@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/16 14:44:32 by albaur            #+#    #+#             */
-/*   Updated: 2022/07/25 17:36:34 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 10:14:10 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,8 +151,6 @@ typedef struct s_exit
 	char	*err;
 	char	*str;
 }				t_exit;
-
-t_hd	*g_hd;
 
 // init
 int			init_shell(t_data *data);
