@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/25 14:01:06 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/25 17:16:58 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 14:20:49 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,33 +20,38 @@ static int	ret_parse_err(t_token *token)
 	return (258);
 }
 
+int	ft_parser_pt2(t_node *node)
+{
+	if (!ft_tokcmp(node->content, and_type)
+		|| !ft_tokcmp(node->content, or_type))
+		return (1);
+	else if ((!ft_tokcmp(node->content, greater_than_type)
+			|| !ft_tokcmp(node->content, smaller_than_type)
+			|| !ft_tokcmp(node->content, d_greater_than_type)
+			|| !ft_tokcmp(node->content, d_smaller_than_type))
+		&& (!node->next
+			|| !ft_tokcmp(node->next->content, greater_than_type)
+			|| !ft_tokcmp(node->next->content, smaller_than_type)
+			|| !ft_tokcmp(node->next->content, d_greater_than_type)
+			|| !ft_tokcmp(node->next->content, d_smaller_than_type)))
+		return (1);
+	else if (!ft_tokcmp(node->content, pipe_type) && (!node->next
+			|| !ft_tokcmp(node->next->content, pipe_type)
+			|| !ft_tokcmp(node->next->content, and_type)))
+		return (1);
+	return (0);
+}
+
 int	ft_parser(t_stack *stack)
 {
 	t_node	*current;
-	size_t	i;
 
 	current = stack->top;
-	i = 0;
 	if (!ft_tokcmp(current->content, pipe_type))
 		return (ret_parse_err(current->content));
 	while (current)
 	{
-		if (!ft_tokcmp(current->content, and_type)
-			|| !ft_tokcmp(current->content, or_type))
-			return (ret_parse_err(current->content));
-		else if ((!ft_tokcmp(current->content, greater_than_type)
-				|| !ft_tokcmp(current->content, smaller_than_type)
-				|| !ft_tokcmp(current->content, d_greater_than_type)
-				|| !ft_tokcmp(current->content, d_smaller_than_type))
-			&& (!current->next
-				|| !ft_tokcmp(current->next->content, greater_than_type)
-				|| !ft_tokcmp(current->next->content, smaller_than_type)
-				|| !ft_tokcmp(current->next->content, d_greater_than_type)
-				|| !ft_tokcmp(current->next->content, d_smaller_than_type)))
-			return (ret_parse_err(current->content));
-		else if (!ft_tokcmp(current->content, pipe_type) && (!current->next
-				|| !ft_tokcmp(current->next->content, pipe_type)
-				|| !ft_tokcmp(current->next->content, and_type)))
+		if (ft_parser_pt2(current))
 			return (ret_parse_err(current->content));
 		current = current->next;
 	}
