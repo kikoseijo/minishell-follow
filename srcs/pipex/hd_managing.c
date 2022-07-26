@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:53:59 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/26 15:09:45 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:23:50 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_hd_performer(char *path, t_hd *hd)
 	int	i;
 
 	i = 0;
-	fd = open(TMP_FILE, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	fd = open(TMP_FILE, O_WRONLY | O_CREAT | O_APPEND | O_TRUNC, 0644);
 	if (fd < 0)
 	{
 		ret_null("minishell:", strerror(errno));

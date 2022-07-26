@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 22:03:54 by albaur            #+#    #+#             */
-/*   Updated: 2022/07/26 15:06:28 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 15:21:31 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	here_doc_sig_handler(int sig, siginfo_t *info, void *context)
 {
+	int	fd;
+
 	(void)info;
 	(void)context;
 	if (sig == SIGINT)
@@ -22,6 +24,14 @@ void	here_doc_sig_handler(int sig, siginfo_t *info, void *context)
 		rl_on_new_line();
 		ft_putendl("");
 		rl_redisplay();
+		fd = open(TMP_FILE, O_WRONLY | O_APPEND, 0644);
+		if (fd < 0)
+		{
+			ret_null("minishell:", strerror(errno));
+			return ;
+		}
+		ft_putchar_fd('\n', fd);
+		close(fd);
 	}
 }
 
