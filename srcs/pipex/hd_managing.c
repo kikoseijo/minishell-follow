@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:53:59 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/26 10:33:25 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 10:36:59 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,11 @@ static char	*ft_add_backslash_en(char *line)
 	}
 }
 
-int	event(void)
-{
-	return (0);
-}
-
 void	ft_hd_performer(char *path, t_hd *hd)
 {
-	sig_toggle(2);
+	sig_toggle(3);
 	while (42)
 	{
-		sig_toggle(3);
 		hd->buffer = readline("heredoc> ");
 		if (!hd->buffer)
 			return ;
@@ -79,7 +73,6 @@ void	ft_hd_performer(char *path, t_hd *hd)
 			return ;
 		hd->cmp = ft_strncmp(hd->buffer, path,
 				ft_strlen(hd->buffer) - 1);
-		rl_event_hook = event;
 		if (!hd->buffer || (!hd->cmp
 				&& ft_strlen(hd->buffer) - 1 == ft_strlen(path)))
 			break ;
@@ -88,7 +81,6 @@ void	ft_hd_performer(char *path, t_hd *hd)
 			return ;
 		free(hd->buffer);
 	}
-	rl_done = 0;
 }
 
 static void	hd_managing(char *path, t_var *var)
