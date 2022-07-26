@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 16:22:29 by albaur            #+#    #+#             */
-/*   Updated: 2022/07/22 21:12:37 by albaur           ###   ########.fr       */
+/*   Updated: 2022/07/26 13:38:20 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,11 @@ void	ft_stack_freer(t_stack *stack)
 	while (tmp)
 	{
 		node_del(tmp, &stack);
+		tmp = NULL;
 		tmp = stack->top;
 	}
-	stack = NULL;
 	free(stack);
+	stack = NULL;
 }
 
 char	*ft_concat(char *s1, char *s2)

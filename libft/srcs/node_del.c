@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   node_del.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: albaur <albaur@student.42.fr>              +#+  +:+       +#+        */
+/*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 21:12:55 by albaur            #+#    #+#             */
-/*   Updated: 2022/07/22 21:51:54 by albaur           ###   ########.fr       */
+/*   Updated: 2022/07/26 13:37:21 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,11 @@ static void	clear_gt0(t_node *top)
 		top->prev->next = NULL;
 	token = top->content;
 	free(token->str);
+	token->str = NULL;
 	free(token);
+	token = NULL;
 	free(top);
+	top = NULL;
 }
 
 static void	clear_eq0(t_stack **av, t_node *top)
@@ -42,8 +45,11 @@ static void	clear_eq0(t_stack **av, t_node *top)
 	else
 		(*av)->top = NULL;
 	free(token->str);
+	token->str = NULL;
 	free(token);
+	token = NULL;
 	free(top);
+	top = NULL;
 }
 
 void	node_del(t_node *node, t_stack **av)
@@ -62,7 +68,7 @@ void	node_del(t_node *node, t_stack **av)
 	}
 	if (i == -1 || !top)
 	{
-		printf("node_del: error: couldn't find node");
+		ft_printf("node_del: error: couldn't find node");
 		return ;
 	}
 	else if (i == 0)

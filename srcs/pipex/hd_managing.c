@@ -6,7 +6,7 @@
 /*   By: faventur <faventur@student.42mulhouse.fr>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 15:53:59 by faventur          #+#    #+#             */
-/*   Updated: 2022/07/26 10:36:59 by faventur         ###   ########.fr       */
+/*   Updated: 2022/07/26 13:10:49 by faventur         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ static char	*ft_add_backslash_en(char *line)
 	char	*str;
 	size_t	len;
 
+	if (!line)
+		return (NULL);
 	if (line[0] != '\0')
 	{
 		len = ft_strlen(line);
@@ -49,15 +51,16 @@ static char	*ft_add_backslash_en(char *line)
 		ft_strcpy(str, line);
 		str[len] = '\n';
 		str[len + 1] = '\0';
-		free(line);
-		return (str);
 	}
 	else
 	{
 		str = malloc(sizeof(char) * 1);
+		if (!str)
+			return (NULL);
 		str[0] = '\0';
-		return (str);
 	}
+	free(line);
+	return (str);
 }
 
 void	ft_hd_performer(char *path, t_hd *hd)
